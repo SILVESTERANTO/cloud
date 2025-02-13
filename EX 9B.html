@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="schoolApp">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>School Management System</title>
+<link rel="stylesheet" href="styles.css">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.min.js"></script>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f8ff;
+}
+
+header {
+    background-color: #4a8ed7;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.school-logo {
+    height: 60px;
+}
+
+nav {
+    background-color: #c7c7c7;
+    text-align: center;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav ul li a:hover {
+    text-decoration: underline;
+}
+
+section {
+    padding: 20px;
+}
+
+footer {
+    text-align: center;
+    padding: 10px 0;
+    background-color: #4a8ed7;
+    color: white;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+iframe {
+    max-width: 100%;
+    height: auto;
+}
+</style>
+</head>
+<body>
+<div ng-controller="MainController">
+<header>
+    <div class="header-container">
+        <img src="img/img2.jpg" alt="School Logo" class="school-logo">
+        <div class="header-text">
+            <h1>ABC School Management System</h1>
+            <p>Your gateway to student success</p>
+        </div>
+        <img src="img/attendance.jpg" alt="School Logo" class="school-logo">
+    </div>
+</header>
+
+<nav>
+    <ul>
+        <li><a href="#!registration">Student Registration</a></li>
+        <li><a href="#!class-details">Class Details</a></li>
+        <li><a href="#!application-status">Application Status</a></li>
+        <li><a href="#!login">Login | Sign Up</a></li>
+    </ul>
+</nav>
+
+<section class="main-banner">
+    <div class="banner-text">
+        <h2>About ABC School</h2>
+        <p>Welcome to ABC School Management System. Here, students and parents can register for classes, view class details, check application statuses, and access a range of other school-related information.</p>
+        <h2></h2>
+    </div>
+</section>
+
+<section ng-view></section>
+
+<footer>
+    <p>© 2024 ABC School Management System. All rights reserved.</p>
+</footer>
+</div>
+
+<script>
+var app = angular.module('schoolApp', ['ngRoute']);
+
+app.config(function($routeProvider) {
+    $routeProvider
+    .when('/registration', {
+        templateUrl: 'registration.html',
+        controller: 'RegistrationController'
+    })
+    .when('/class-details', {
+        templateUrl: 'class-details.html',
+        controller: 'ClassDetailsController'
+    })
+    .when('/application-status', {
+        templateUrl: 'application-status.html',
+        controller: 'ApplicationStatusController'
+    })
+    .when('/login', {
+        templateUrl: 'login.html',
+        controller: 'LoginController'
+    })
+    .when('/signup', {
+        templateUrl: 'signup.html',
+        controller: 'SignUpController'
+    })
+    .otherwise({
+        redirectTo: '/registration'
+    });
+});
+
+app.controller('MainController', function($scope) {});
+
+app.controller('RegistrationController', function($scope) {
+    $scope.registrationData = {};
+    $scope.submitRegistration = function() {
+        alert('Registration submitted for ' + $scope.registrationData.name);
+    };
+});
+
+app.controller('ClassDetailsController', function($scope) {
+    $scope.classDetails = {
+        className: '10A',
+        subjects: ['Mathematics', 'Science', 'History'],
+        teacher: 'Mr. Smith'
+    };
+});
+
+app.controller('ApplicationStatusController', function($scope) {
+    $scope.applicationStatus = {
+        studentName: 'John Doe',
+        class: '10A',
+        status: 'Pending'
+    };
+});
+
+app.controller('LoginController', function($scope) {
+    $scope.loginData = {};
+    $scope.submitLogin = function() {
+        alert('Logging in: ' + $scope.loginData.username);
+    };
+});
+
+app.controller('SignUpController', function($scope) {
+    $scope.signupData = {};
+    $scope.submitSignUp = function() {
+        alert('Sign Up successful for: ' + $scope.signupData.username);
+    };
+});
+</script>
+</body>
+</html>
